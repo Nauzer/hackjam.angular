@@ -1,8 +1,10 @@
 import { Component } from '@angular/core';
+import { mockBooks } from '../app/mocks/books';
+import categories from '../app/mocks/categories';
 
 // Book Type
 export class Book {
-  title: Number;
+  title: String;
   cover: String;
   category: String;
 }
@@ -17,15 +19,21 @@ export class Category {}
 })
 
 export class AppComponent {
-  books: Book [] = []; // use mocks data instead
-  categories: String [] = ['All', 'Web']; // use mocks data instead
+  books: Book [] = mockBooks; // use mocks data instead
+  categories: String [] = categories; // use mocks data instead
+  currentCategory: String = 'All';
   navClosed: Boolean = true;
+  query: String = "";
 
-  clicked() {
-    console.log('Will be implemented in the next section');
+  selectCategory(category) {
+      categories.forEach((category) => { category.selected = false });
+      category.selected = true;
+      this.currentCategory = category.name;
   }
 
-  search(){}
+  search(event){
+    this.query = event.target.value;
+  }
 
   toggleSideBar(){
     this.navClosed = !this.navClosed;

@@ -1,8 +1,8 @@
 <header class="header">
     <div class='overlay'>
-    <div class='logo'>
-        <h1>Books by Hackages</h1>
-    </div>
+        <div class='logo'>
+            <h1>Books by Hackages</h1>
+        </div>
     </div>
 </header>
 <main class="main-content">
@@ -10,12 +10,12 @@
     <div class="tab-filter-wrapper">
         <div class="tab-filter">
             <ul>
-            <li class="placeholder">
-                <a data-type="all" href="#0">All</a>
-            </li>
-            <li ngFor="let category in categories">
-                <a class="selected" href="#0">{{category.name}}</a>
-            </li>
+                <li class="placeholder">
+                    <a data-type="all" href="#0">All</a>
+                </li>
+                <li *ngFor="let category of categories">
+                    <a [class]="category.selected ? 'selected' : ''" href="#" (click)="selectCategory(category)">{{category.name}}</a>
+                </li>
             </ul>
         </div>
     </div>
@@ -23,24 +23,24 @@
     <!--List of books-->
     <section class="gallery">
         <ul>
-            <li ngIf="let book of books"><img src="book.cover" click="clicked"/></li>
+            <li *ngFor="let book of books | categoryFilter:currentCategory | searchFilter:query"><img src="{{book.cover}}" click="clicked"/></li>
         </ul>
     </section>
 
     <!--Sidebar navigation-->
     <div>
-        <div class="!navClosed ? 'filter filter-is-visible': 'filter'">
+        <div [class]="!navClosed ? 'filter filter-is-visible': 'filter'">
             <form>
-            <div class="filter-block">
-                <h4>Search</h4>
-                <div class="filter-content">
-                <input type="search" placeholder="title, price..." change="search()"/>
+                <div class="filter-block">
+                    <h4>Search</h4>
+                    <div class="filter-content">
+                        <input type="search" placeholder="title, price..." (input)="search($event)"/>
+                    </div>
                 </div>
-            </div>
             </form>
-            <a href="#0" class="close" onClick="toggleSideBar">Close</a>
+            <a href="#" class="close" (click)="toggleSideBar()">Close</a>
         </div>
 
-        <a href="#0" class="filter-trigger" onClick="toggleSideBar">Filters</a>
+        <a href="#" class="filter-trigger" (click)="toggleSideBar()">Filters</a>
     </div>
 </main>

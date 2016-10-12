@@ -1,4 +1,4 @@
-# Getting started with Angular 2
+npm # Getting started with Angular 2
 
 [HackJam Angular 2](hackjam.hackages.io)
 

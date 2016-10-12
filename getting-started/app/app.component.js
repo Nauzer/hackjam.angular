@@ -9,6 +9,8 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
+var books_1 = require('../app/mocks/books');
+var categories_1 = require('../app/mocks/categories');
 // Book Type
 var Book = (function () {
     function Book() {
@@ -25,14 +27,20 @@ var Category = (function () {
 exports.Category = Category;
 var AppComponent = (function () {
     function AppComponent() {
-        this.books = []; // use mocks data instead
-        this.categories = ['All', 'Web']; // use mocks data instead
+        this.books = books_1.mockBooks; // use mocks data instead
+        this.categories = categories_1.default; // use mocks data instead
+        this.currentCategory = 'All';
         this.navClosed = true;
+        this.query = "";
     }
-    AppComponent.prototype.clicked = function () {
-        console.log('Will be implemented in the next section');
+    AppComponent.prototype.selectCategory = function (category) {
+        categories_1.default.forEach(function (category) { category.selected = false; });
+        category.selected = true;
+        this.currentCategory = category.name;
     };
-    AppComponent.prototype.search = function () { };
+    AppComponent.prototype.search = function (event) {
+        this.query = event.target.value;
+    };
     AppComponent.prototype.toggleSideBar = function () {
         this.navClosed = !this.navClosed;
     };
